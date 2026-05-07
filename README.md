@@ -42,6 +42,8 @@ uvicorn main:app --reload
 - `app/infrastructure/` — DB, Repositories, External Services
 - `app/presentation/` — REST API Controllers
 
+
+
 ---
 
 ## Implemented User Stories
@@ -181,3 +183,48 @@ This project follows the development timeline and milestones specified in the "C
 ---
 
 *Note: Progress is updated weekly following the course milestones.*
+
+
+```text
+event-management-system/
+├── app/
+│   ├── __init__.py
+│   ├── domain/
+│   │   ├── __init__.py
+│   │   ├── value_objects.py
+│   │   ├── events.py
+│   │   ├── aggregates/
+│   │   │   ├── __init__.py
+│   │   │   ├── event.py
+│   │   │   ├── booking.py
+│   │   │   └── refund.py
+│   │   ├── repositories/
+│   │   │   ├── __init__.py
+│   │   │   ├── event_repository.py
+│   │   │   ├── booking_repository.py
+│   │   │   └── refund_repository.py
+│   │   └── services/
+│   │       ├── __init__.py
+│   │       └── booking_service.py
+│   ├── application/
+│   │   └── __init__.py
+│   ├── infrastructure/
+│   │   └── __init__.py
+│   └── presentation/
+│       └── __init__.py
+├── tests/
+│   ├── __init__.py
+│   └── domain/
+│       ├── __init__.py
+│       ├── test_event.py
+│       ├── test_booking.py
+│       └── test_refund.py
+├── main.py
+├── requirements.txt
+├── .env.example
+├── .gitignore
+├── README.md
+├── domain_model.md
+└── ubiquitous_language.md
+```
+
