@@ -305,41 +305,23 @@ classDiagram
 - Refund can only be marked as paid out if status is Approved
 
 ---
-
 ## Folder Structure
 
 ```text
 event-management-system/
 ├── app/
-│   ├── domain/
-│   │   ├── value_objects.py
-│   │   ├── events.py
-│   │   ├── aggregates/
-│   │   │   ├── event.py
-│   │   │   ├── booking.py
-│   │   │   └── refund.py
-│   │   ├── repositories/
-│   │   │   ├── event_repository.py
-│   │   │   ├── booking_repository.py
-│   │   │   └── refund_repository.py
-│   │   └── services/
-│   │       └── booking_service.py
-│   ├── application/
-│   ├── infrastructure/
-│   └── presentation/
+│   ├── domain/                  # Enterprise business rules, zero external dependencies
+│   │   ├── aggregates/          # Event, Booking, Refund aggregates & their entities
+│   │   ├── repositories/        # Repository interfaces (abstract, no implementation)
+│   │   ├── services/            # Domain services for cross-aggregate logic
+│   │   ├── value_objects.py     # Money, TicketCode, and ID value objects
+│   │   └── events.py            # All domain events
+│   ├── application/             # Use cases: commands, queries, handlers, DTOs
+│   ├── infrastructure/          # DB, repository implementations, external services
+│   └── presentation/            # REST API controllers and routing
 ├── tests/
-│   └── domain/
-│       ├── test_event.py
-│       ├── test_booking.py
-│       └── test_refund.py
+│   └── domain/                  # Unit tests for domain logic
 ├── main.py
-├── requirements.txt
-├── .env.example
-├── .gitignore
-├── README.md
-├── domain_model.md
-└── ubiquitous_language.md
-```
+└── requirements.txt
 ```
 
----
