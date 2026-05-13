@@ -70,8 +70,8 @@ uvicorn main:app --reload
 | 16 | Approve Refund | ✅ |
 | 17 | Reject Refund | ✅ |
 | 18 | Mark Refund as Paid Out | ✅ |
-| 19 | View Event Sales Report | ✅ |
-| 20 | View Event Participants | ✅ |
+| 19 | View Event Sales Report | ⬜ |
+| 20 | View Event Participants | ⬜ |
 
 ---
 
