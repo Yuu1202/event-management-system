@@ -52,26 +52,26 @@ uvicorn main:app --reload
 
 | # | User Story | Status |
 |---|---|---|
-| 1 | Create Event | ⬜ |
-| 2 | Publish Event | ⬜ |
-| 3 | Cancel Event | ⬜ |
-| 4 | Create Ticket Category | ⬜ |
-| 5 | Disable Ticket Category | ⬜ |
-| 6 | View Available Events | ⬜ |
-| 7 | View Event Details | ⬜ |
-| 8 | Create Ticket Booking | ⬜ |
-| 9 | Calculate Booking Total Price | ⬜ |
-| 10 | Pay Booking | ⬜ |
-| 11 | Expire Booking | ⬜ |
-| 12 | View Purchased Tickets | ⬜ |
-| 13 | Check In Ticket | ⬜ |
-| 14 | Reject Invalid Ticket Check-in | ⬜ |
-| 15 | Request Refund | ⬜ |
-| 16 | Approve Refund | ⬜ |
-| 17 | Reject Refund | ⬜ |
-| 18 | Mark Refund as Paid Out | ⬜ |
-| 19 | View Event Sales Report | ⬜ |
-| 20 | View Event Participants | ⬜ |
+| 1 | Create Event | ✅ |
+| 2 | Publish Event | ✅ |
+| 3 | Cancel Event | ✅ |
+| 4 | Create Ticket Category | ✅ |
+| 5 | Disable Ticket Category | ✅ |
+| 6 | View Available Events | ✅ |
+| 7 | View Event Details | ✅ |
+| 8 | Create Ticket Booking | ✅ |
+| 9 | Calculate Booking Total Price | ✅ |
+| 10 | Pay Booking | ✅ |
+| 11 | Expire Booking | ✅ |
+| 12 | View Purchased Tickets | ✅ |
+| 13 | Check In Ticket | ✅ |
+| 14 | Reject Invalid Ticket Check-in | ✅ |
+| 15 | Request Refund | ✅ |
+| 16 | Approve Refund | ✅ |
+| 17 | Reject Refund | ✅ |
+| 18 | Mark Refund as Paid Out | ✅ |
+| 19 | View Event Sales Report | ✅ |
+| 20 | View Event Participants | ✅ |
 
 ---
 
@@ -81,19 +81,19 @@ uvicorn main:app --reload
 
 | Domain Event | Trigger | Status |
 |---|---|---|
-| EventCreated | Event organizer creates a new event | ⬜ |
-| EventPublished | Event organizer publishes an event | ⬜ |
-| EventCancelled | Event organizer cancels an event | ⬜ |
-| TicketCategoryCreated | Ticket category added to event | ⬜ |
-| TicketCategoryDisabled | Ticket category disabled | ⬜ |
-| TicketReserved | Customer creates a booking | ⬜ |
-| BookingPaid | Customer pays for booking | ⬜ |
-| BookingExpired | Payment deadline passed without payment | ⬜ |
-| TicketCheckedIn | Gate officer checks in a ticket | ⬜ |
-| RefundRequested | Customer requests a refund | ⬜ |
-| RefundApproved | Organizer approves refund | ⬜ |
-| RefundRejected | Organizer rejects refund | ⬜ |
-| RefundPaidOut | Admin marks refund as paid out | ⬜ |
+| EventCreated | Event organizer creates a new event | ✅ |
+| EventPublished | Event organizer publishes an event | ✅ |
+| EventCancelled | Event organizer cancels an event | ✅ |
+| TicketCategoryCreated | Ticket category added to event | ✅ |
+| TicketCategoryDisabled | Ticket category disabled | ✅ |
+| TicketReserved | Customer creates a booking | ✅ |
+| BookingPaid | Customer pays for booking | ✅ |
+| BookingExpired | Payment deadline passed without payment | ✅ |
+| TicketCheckedIn | Gate officer checks in a ticket | ✅ |
+| RefundRequested | Customer requests a refund | ✅ |
+| RefundApproved | Organizer approves refund | ✅ |
+| RefundRejected | Organizer rejects refund | ✅ |
+| RefundPaidOut | Admin marks refund as paid out | ✅ |
 
 ---
 
@@ -103,9 +103,9 @@ uvicorn main:app --reload
 
 | Interface | Description | Status |
 |---|---|---|
-| PaymentGatewayInterface | Process booking payments | ⬜ |
-| RefundPaymentServiceInterface | Process refund payouts to customers | ⬜ |
-| NotificationServiceInterface | Send email or WhatsApp notifications | ⬜ |
+| PaymentGatewayInterface | Process booking payments | ✅ |
+| RefundPaymentServiceInterface | Process refund payouts to customers | ✅ |
+| NotificationServiceInterface | Send email or WhatsApp notifications | ✅ |
 
 ---
 
