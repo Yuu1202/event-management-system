@@ -68,7 +68,7 @@ class Event:
     ticket_categories: List[TicketCategory] = field(default_factory=list)
     _domain_events: List[DomainEvent] = field(default_factory=list, repr=False)
 
-    def _post_init_(self):
+    def __post_init__(self):  # FIX: Gunakan double underscore
         if self.end_date < self.start_date:
             raise ValueError("End date cannot be earlier than start date")
         if self.max_capacity <= 0:
@@ -84,6 +84,13 @@ class Event:
         max_capacity: int,
         organizer_id: str,
     ) -> "Event":
+    
+        # Validasi manual di sini agar fail-fast
+        if end_date < start_date:
+            raise ValueError("End date cannot be earlier than start date")
+        if max_capacity <= 0:
+            raise ValueError("Max capacity must be greater than zero")
+
         event_id = EventId.generate()
         event = Event(
             id=event_id,
@@ -97,6 +104,7 @@ class Event:
         )
         event._domain_events.append(EventCreated(event_id=event_id.value, name=name))
         return event
+    
 
     def publish(self):
         if self.status == EventStatus.CANCELLED:

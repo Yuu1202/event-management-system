@@ -53,7 +53,8 @@ def test_event_created_status_is_draft():
 def test_event_raises_event_created_domain_event():
     event = make_event()
     events = event.pull_domain_events()
-    assert any(e._class.name_ == "EventCreated" for e in events)
+    # FIX: Menggunakan __class__.__name__ untuk mengecek tipe event
+    assert any(e.__class__.__name__ == "EventCreated" for e in events)
 
 
 def test_event_cannot_be_published_without_active_category():
