@@ -159,10 +159,10 @@ This project follows the development timeline and milestones specified in the "C
 - [x] Document initial Ubiquitous Language glossary
 
 ### **Week 9-10: Domain Layer & Unit Tests**
-- [ ] Implement DDD tactical patterns: Aggregates, Entities, and Value Objects
-- [ ] Implement Domain Services and Domain Events
-- [ ] Define Repository Interfaces
-- [ ] Write and pass Unit Tests for domain logic
+- [x] Implement DDD tactical patterns: Aggregates, Entities, and Value Objects
+- [x] Implement Domain Services and Domain Events
+- [x] Define Repository Interfaces
+- [x] Write and pass Unit Tests for domain logic
 
 ### **Week 11: Application Layer**
 - [ ] Implement Commands, Queries, and their respective Handlers
