@@ -185,46 +185,143 @@ This project follows the development timeline and milestones specified in the "C
 *Note: Progress is updated weekly following the course milestones.*
 
 
+Ini bagian-bagian yang perlu ditambahin, paste setelah section Architecture yang sudah ada:
+
+---
+
+### Setelah bagian `## Architecture`, tambahkan:
+
+## DDD & Clean Architecture Terms
+
+| Term | Meaning |
+|---|---|
+| **Aggregate** | A cluster of domain objects treated as a single unit for data changes. |
+| **Entity** | A domain object with a unique identity that persists over time. |
+| **Value Object** | An object defined only by its attributes with no unique identity (e.g., `Money`). |
+| **Domain Event** | A notification of a significant change within the domain logic. |
+| **Repository** | An interface for persisting and retrieving Aggregates from the database. |
+| **Domain Service** | Business logic that doesn't naturally belong inside a single Entity or Aggregate. |
+| **Command** | An object representing an intent to change the state of the system. |
+| **Query** | An object representing a request to retrieve data without changing it. |
+| **Handler** | The specific logic that executes a Command or a Query. |
+| **DTO** | Data Transfer Object used to move data between layers. |
+
+---
+
+## Domain Model
+
+```mermaid
+classDiagram
+    class Event {
+        <<Aggregate Root>>
+        +EventId id
+        +String name
+        +Date startDate
+        +Date endDate
+        +EventStatus status
+        +publish()
+        +cancel()
+    }
+    class TicketCategory {
+        <<Entity>>
+        +TicketCategoryId id
+        +String name
+        +Money price
+        +int quota
+        +int bookedCount
+        +disable()
+    }
+    class Booking {
+        <<Aggregate Root>>
+        +BookingId id
+        +String customerId
+        +BookingStatus status
+        +DateTime paymentDeadline
+        +pay()
+        +expire()
+    }
+    class Ticket {
+        <<Entity>>
+        +TicketId id
+        +TicketCode code
+        +TicketStatus status
+        +checkIn()
+    }
+    class Refund {
+        <<Aggregate Root>>
+        +RefundId id
+        +RefundStatus status
+        +String rejectionReason
+        +approve()
+        +reject()
+        +markPaidOut()
+    }
+
+    Event "1" *-- "many" TicketCategory : contains
+    Booking "1" --> "1" Event : references
+    Booking "1" --> "1" TicketCategory : references
+    Booking "1" *-- "many" Ticket : issues
+    Refund "1" --> "1" Booking : requested for
+```
+
+---
+
+## Repository Interfaces
+
+| Interface | Methods |
+|---|---|
+| **EventRepository** | `save(Event)`, `find_by_id(EventId)`, `find_all_published()` |
+| **BookingRepository** | `save(Booking)`, `find_by_id(BookingId)`, `find_by_customer_and_event(customerId, EventId)`, `find_paid_by_event(EventId)` |
+| **RefundRepository** | `save(Refund)`, `find_by_id(RefundId)`, `find_by_booking_id(BookingId)` |
+
+---
+
+## Business Rules
+
+### Event & Ticket Category
+- Event end date cannot be earlier than start date
+- Event max capacity must be greater than zero
+- Event must have at least one active ticket category to be published
+- Cancelled event cannot be published, completed event cannot be cancelled
+- Ticket category price cannot be negative, quota must be greater than zero
+- Ticket category sales period must end before or at event start date
+- Total quota of all ticket categories cannot exceed event max capacity
+
+### Booking & Payment
+- Booking can only be created for Published events within the sales period
+- Ticket quantity must be greater than zero and not exceed remaining quota
+- Customer cannot have more than one active booking per event
+- Payment deadline is 15 minutes after booking is created
+- Payment amount must exactly match total price
+- Booking cannot be paid after payment deadline
+- Paid booking cannot be expired
+
+### Check-in & Refund
+- Check-in can only be performed on the event day with an Active ticket
+- Checked-in ticket cannot be checked in again
+- Refund can only be requested for Paid bookings with no checked-in tickets
+- Refund approval/rejection only possible if status is Requested
+- Rejection must include a reason
+- Refund can only be marked as paid out if status is Approved
+
+---
+## Folder Structure
+
 ```text
 event-management-system/
 ├── app/
-│   ├── __init__.py
-│   ├── domain/
-│   │   ├── __init__.py
-│   │   ├── value_objects.py
-│   │   ├── events.py
-│   │   ├── aggregates/
-│   │   │   ├── __init__.py
-│   │   │   ├── event.py
-│   │   │   ├── booking.py
-│   │   │   └── refund.py
-│   │   ├── repositories/
-│   │   │   ├── __init__.py
-│   │   │   ├── event_repository.py
-│   │   │   ├── booking_repository.py
-│   │   │   └── refund_repository.py
-│   │   └── services/
-│   │       ├── __init__.py
-│   │       └── booking_service.py
-│   ├── application/
-│   │   └── __init__.py
-│   ├── infrastructure/
-│   │   └── __init__.py
-│   └── presentation/
-│       └── __init__.py
+│   ├── domain/                  # Enterprise business rules, zero external dependencies
+│   │   ├── aggregates/          # Event, Booking, Refund aggregates & their entities
+│   │   ├── repositories/        # Repository interfaces (abstract, no implementation)
+│   │   ├── services/            # Domain services for cross-aggregate logic
+│   │   ├── value_objects.py     # Money, TicketCode, and ID value objects
+│   │   └── events.py            # All domain events
+│   ├── application/             # Use cases: commands, queries, handlers, DTOs
+│   ├── infrastructure/          # DB, repository implementations, external services
+│   └── presentation/            # REST API controllers and routing
 ├── tests/
-│   ├── __init__.py
-│   └── domain/
-│       ├── __init__.py
-│       ├── test_event.py
-│       ├── test_booking.py
-│       └── test_refund.py
+│   └── domain/                  # Unit tests for domain logic
 ├── main.py
-├── requirements.txt
-├── .env.example
-├── .gitignore
-├── README.md
-├── domain_model.md
-└── ubiquitous_language.md
+└── requirements.txt
 ```
 
