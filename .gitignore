@@ -13,3 +13,15 @@ build/
 .pytest_cache/
 htmlcov/
 .coverage
+# Alembic
+alembic/versions/*.pyc
+
+# SQLAlchemy
+*.sqlite
+*.db
+
+# Environment
+.env
+
+# OS
+Thumbs.db
